@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -65,7 +67,8 @@ fun AddEditNoteScreen(
             FloatingActionButton(
                 onClick = {
                     viewModel.onEvent(AddEditNoteEvent.SaveNote)
-                }
+                },
+                backgroundColor = Color.White
             ) {
                 Icon(
                     imageVector = Icons.Default.Save,
@@ -80,6 +83,21 @@ fun AddEditNoteScreen(
                 .background(noteBackgroundAnimatable.value)
                 .padding(16.dp)
         ) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back to notes screen",
+                        tint = Color.White
+                    )
+                }
+            }
 
             Row(
                 modifier = Modifier

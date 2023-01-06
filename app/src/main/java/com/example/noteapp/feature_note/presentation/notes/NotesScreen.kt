@@ -31,24 +31,11 @@ fun NotesScreen(
 
     Scaffold(
         scaffoldState = scaffoldState,
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navController.navigate(Screen.AddEditNoteScreen.route)
-                },
-                backgroundColor = MaterialTheme.colors.primary
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add note"
-                )
-            }
-        },
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -58,15 +45,30 @@ fun NotesScreen(
                     text = "Your notes",
                     style = MaterialTheme.typography.h4
                 )
-                IconButton(
-                    onClick = {
-                        viewModel.onEvent(NotesEvent.ToggleOrderSection)
-                    }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Sort,
-                        contentDescription = "Sort"
-                    )
+                    IconButton(
+                        onClick = {
+                            viewModel.onEvent(NotesEvent.ToggleOrderSection)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Sort,
+                            contentDescription = "Sort"
+                        )
+                    }
+                    IconButton(
+                        onClick = {
+                            navController.navigate(Screen.AddEditNoteScreen.route)
+                        },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Add note"
+                        )
+                    }
                 }
             }
             AnimatedVisibility(
@@ -88,8 +90,7 @@ fun NotesScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
-                    .padding(bottom = it.calculateBottomPadding()),
+                modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ){
                items(state.notes){
@@ -98,10 +99,10 @@ fun NotesScreen(
                        modifier = Modifier
                            .fillMaxWidth()
                            .clickable {
-                                navController.navigate(
-                                    Screen.AddEditNoteScreen.route +
-                                            "?noteId=${it.id}&noteColor=${it.color}"
-                                )
+                               navController.navigate(
+                                   Screen.AddEditNoteScreen.route +
+                                           "?noteId=${it.id}&noteColor=${it.color}"
+                               )
                            },
                        onDeleteClick = {
                            viewModel.onEvent(NotesEvent.DeleteNote(it))
@@ -117,6 +118,9 @@ fun NotesScreen(
                        }
                    )
                }
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
         }
     }
