@@ -1,5 +1,6 @@
 package com.example.noteapp.feature_note.presentation.notes.components
 
+import android.text.format.DateFormat
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -22,7 +23,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.example.noteapp.feature_note.domain.model.Note
-import com.example.noteapp.ui.theme.Shapes
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun NoteItem(
@@ -77,8 +81,15 @@ fun NoteItem(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = note.title,
+                text = note.content,
                 style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onSurface,
+                maxLines = 10,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = DateFormat.format("dd/MM/yyyy hh:mm:ss", Date(note.timestamp)).toString(),
+                style = MaterialTheme.typography.body2,
                 color = MaterialTheme.colors.onSurface,
                 maxLines = 10,
                 overflow = TextOverflow.Ellipsis
