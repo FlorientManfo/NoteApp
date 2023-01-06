@@ -85,4 +85,7 @@ dependencies {
 
     //Kotlin Extensions and coroutines support for Room
     implementation "androidx.room:room-ktx:2.4.3"
+
+    //FlowLayout
+    implementation 'com.google.accompanist:accompanist-flowlayout:0.28.0'
 }
